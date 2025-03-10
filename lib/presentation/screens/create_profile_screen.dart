@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ott102/data/repositories/shared_pref_repository.dart';
+import 'package:ott102/domain/use_cases/profile_use_case.dart';
+import 'package:ott102/main.dart';
 import 'package:ott102/presentation/providers/create_profile_provider.dart';
 import 'package:ott102/presentation/screens/select_profile_screen.dart';
 
@@ -8,7 +11,7 @@ class CreateProfileScreen extends StatefulWidget {
   @override
   State<CreateProfileScreen> createState() => _CreateProfileScreenState();
 
-  CreateProfileProvider provider = CreateProfileProvider();
+  CreateProfileProvider provider = CreateProfileProvider(ProfileUseCase(sharedPrefRepository));
 }
 
 class _CreateProfileScreenState extends State<CreateProfileScreen> {
@@ -101,16 +104,10 @@ class _CreateProfileScreenState extends State<CreateProfileScreen> {
               ),
               SizedBox(height: 20,),
               GestureDetector(
-                onTap: () => {
-                  Navigator.of(context).pop(),
+                onTap: () async {
+                  await widget.provider.saveProfileList();
+                  Navigator.of(context).pop(true);
                 },
-                // onTap: () async {
-                //   print('---------------------------------------1');
-                //   await widget.provider.saveProfile();
-                //   print('---------------------------------------2');
-                //   await widget.provider.getProfileList();
-                //   print('---------------------------------------3');
-                // },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   alignment: Alignment.center,

@@ -26,9 +26,9 @@ class ProfileModel {
   Map<String, dynamic> toJson() {
     return {
       'profileName': profileName,
-      'r': profileColor.r,
-      'g': profileColor.g,
-      'b': profileColor.b,
+      'r': profileColor.red,
+      'g': profileColor.green,
+      'b': profileColor.blue,
     };
   }
 

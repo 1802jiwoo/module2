@@ -3,18 +3,15 @@ import 'package:ott102/data/models/profile_model.dart';
 import 'package:ott102/domain/use_cases/profile_use_case.dart';
 import 'package:ott102/main.dart';
 
+ProfileProvider profileProvider = ProfileProvider(ProfileUseCase(sharedPrefRepository));
 
-SelectProfileProvider selectProfileProvider = SelectProfileProvider(ProfileUseCase(sharedPrefRepository));
-
-class SelectProfileProvider extends ChangeNotifier {
-  
+class ProfileProvider extends ChangeNotifier {
   final ProfileUseCase profileUseCase;
-
-  SelectProfileProvider(this.profileUseCase);
+  ProfileProvider(this.profileUseCase);
 
   List<ProfileModel> profileList = [];
-  
-  loadProfileList() {
+
+  void loadProfileList() {
     profileList = profileUseCase.getProfileList();
     notifyListeners();
   }
